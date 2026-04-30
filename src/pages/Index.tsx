@@ -194,13 +194,14 @@ const Index = () => {
         </div>
 
         {/* Copy — dropped into bottom third of viewport */}
-        <div className="relative z-10 text-center max-w-5xl mx-auto reveal mt-auto">
+        <div className="relative z-10 text-center max-w-5xl mx-auto reveal mt-auto mb-10 md:mb-0">
           <h1 className="font-display text-[clamp(2.5rem,7vw,8.5rem)] leading-[0.95] text-ink">
             Affordable luxury.<br />
             <span className="italic text-brand">Effortless</span> confidence.
           </h1>
           <p className="mt-8 text-base md:text-lg text-muted-ink max-w-2xl mx-auto">
-            Medical-grade laser, natural permanent makeup, and Russian manicures in Auburn — serving Kent, Renton, Tukwila, Federal Way and the greater Seattle area.
+            <span className="md:hidden">Natural permanent makeup, and Russian manicures in Auburn.</span>
+            <span className="hidden md:inline">Medical-grade laser, natural permanent makeup, and Russian manicures in Auburn — serving Kent, Renton, Tukwila, Federal Way and the greater Seattle area.</span>
           </p>
           <div className="mt-10">
             <a
