@@ -4,70 +4,70 @@
 
 @layer base {
   :root {
-    /* FACELINES palette: soft sky-blue → warm cream (kept from original template) */
-    --background: 210 40% 98%;
-    --foreground: 220 15% 18%;
+    /* FACELINES palette: warm beige/ochre — hue shifted from 200-220 → 28-42 */
+    --background: 38 40% 98%;
+    --foreground: 35 15% 18%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 18%;
+    --card-foreground: 35 15% 18%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 18%;
+    --popover-foreground: 35 15% 18%;
 
-    /* Deep slate grey, like the dark CTA pill */
-    --primary: 220 15% 25%;
+    /* Deep warm taupe, like the dark CTA pill */
+    --primary: 35 15% 25%;
     --primary-foreground: 40 30% 96%;
 
-    --secondary: 210 30% 94%;
-    --secondary-foreground: 220 15% 25%;
+    --secondary: 38 30% 94%;
+    --secondary-foreground: 35 15% 25%;
 
-    --muted: 210 25% 95%;
-    --muted-foreground: 220 14% 30%;
+    --muted: 38 25% 95%;
+    --muted-foreground: 35 14% 30%;
 
-    --accent: 200 50% 90%;
-    --accent-foreground: 220 15% 25%;
+    --accent: 32 50% 90%;
+    --accent-foreground: 35 15% 25%;
 
     --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 20% 90%;
-    --input: 220 20% 90%;
-    --ring: 220 15% 25%;
+    --border: 35 20% 90%;
+    --input: 35 20% 90%;
+    --ring: 35 15% 25%;
 
     --radius: 1.5rem;
 
     /* Brand-specific tokens */
     --cream: 40 35% 96%;
-    --sky: 205 60% 92%;
-    --sky-deep: 210 45% 82%;
-    --ink: 220 18% 22%;
-    --muted-ink: 220 14% 32%;
-    /* Single accent — dusty rose; complements cream + sky + slate */
-    --brand: 12 55% 56%;
-    --brand-soft: 12 60% 94%;
+    --sky: 33 60% 92%;
+    --sky-deep: 34 45% 87%;
+    --ink: 35 18% 22%;
+    --muted-ink: 35 14% 32%;
+    /* Single accent — vivid coral; warm and bright against beige */
+    --brand: 8 78% 58%;
+    --brand-soft: 10 80% 94%;
 
     --gradient-hero: radial-gradient(
         ellipse 80% 60% at 50% 40%,
         hsl(40 40% 97%) 0%,
-        hsl(200 50% 92%) 45%,
-        hsl(210 55% 86%) 100%
+        hsl(33 50% 93%) 45%,
+        hsl(34 55% 90%) 100%
       );
-    --gradient-soft: linear-gradient(180deg, hsl(40 35% 97%) 0%, hsl(205 50% 93%) 100%);
-    --gradient-card: linear-gradient(160deg, hsl(0 0% 100% / 0.8), hsl(200 40% 95% / 0.6));
+    --gradient-soft: linear-gradient(180deg, hsl(40 35% 97%) 0%, hsl(33 50% 93%) 100%);
+    --gradient-card: linear-gradient(160deg, hsl(0 0% 100% / 0.8), hsl(32 40% 95% / 0.6));
 
-    --shadow-soft: 0 30px 60px -30px hsl(220 30% 40% / 0.15);
-    --shadow-pill: 0 10px 30px -10px hsl(220 30% 30% / 0.25);
+    --shadow-soft: 0 30px 60px -30px hsl(35 30% 40% / 0.15);
+    --shadow-pill: 0 10px 30px -10px hsl(35 30% 30% / 0.25);
 
     --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-foreground: 35 5.3% 26.1%;
+    --sidebar-primary: 35 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 35 4.8% 95.9%;
+    --sidebar-accent-foreground: 35 5.9% 10%;
+    --sidebar-border: 35 13% 91%;
+    --sidebar-ring: 35 91.2% 59.8%;
   }
 }
 
@@ -109,12 +109,12 @@
       circle at 50% 50%,
       transparent 0,
       transparent 60px,
-      hsl(220 20% 70% / 0.08) 60px,
-      hsl(220 20% 70% / 0.08) 61px,
+      hsl(35 20% 70% / 0.08) 60px,
+      hsl(35 20% 70% / 0.08) 61px,
       transparent 61px,
       transparent 120px,
-      hsl(220 20% 70% / 0.08) 120px,
-      hsl(220 20% 70% / 0.08) 121px,
+      hsl(35 20% 70% / 0.08) 120px,
+      hsl(35 20% 70% / 0.08) 121px,
       transparent 121px
     );
     background-size: 240px 240px;
@@ -134,12 +134,12 @@
   }
   .pill-dark:hover {
     transform: translateY(-2px);
-    box-shadow: 0 16px 40px -12px hsl(220 30% 30% / 0.35);
+    box-shadow: 0 16px 40px -12px hsl(35 30% 30% / 0.35);
   }
   .pill-light {
     background: hsl(var(--cream));
     color: hsl(var(--ink));
-    box-shadow: 0 4px 20px -4px hsl(220 30% 40% / 0.1);
+    box-shadow: 0 4px 20px -4px hsl(35 30% 40% / 0.1);
   }
   .pill-light:hover {
     transform: translateY(-2px);

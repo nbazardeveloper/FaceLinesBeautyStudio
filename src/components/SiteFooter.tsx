@@ -22,7 +22,7 @@ export const SiteFooter = () => (
         <ul className="space-y-2 text-sm">
           <li><Link to="/about" className="hover:text-white transition">About</Link></li>
           <li><Link to="/services" className="hover:text-white transition">Services</Link></li>
-          <li><Link to="/journal" className="hover:text-white transition">Journal</Link></li>
+          <li><Link to="/journal" className="hover:text-white transition">Vlog</Link></li>
           <li><Link to="/contact" className="hover:text-white transition">Contact</Link></li>
         </ul>
       </div>
@@ -66,6 +66,11 @@ export const SiteFooter = () => (
     <div className="border-t border-cream/10">
       <div className="container py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-cream">
         <span>© {new Date().getFullYear()} {BUSINESS.name} · {BUSINESS.address.cityStateZip}</span>
+        <div className="flex flex-wrap items-center gap-4">
+          <Link to="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link>
+          <Link to="/terms-of-use" className="hover:text-white transition">Terms of Use</Link>
+          <Link to="/cookie-policy" className="hover:text-white transition">Cookies</Link>
+        </div>
         <span>{BUSINESS.hoursSummary}</span>
       </div>
     </div>

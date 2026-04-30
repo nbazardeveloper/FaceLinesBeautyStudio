@@ -1,8 +1,8 @@
 import { PageLayout } from "@/components/PageLayout";
 import { SEO } from "@/components/SEO";
 import { BUSINESS } from "@/lib/business";
-import founder from "@/assets/founder.png";
-import t1 from "@/assets/treatment-1.jpg";
+import founder from "@/assets/founder.webp";
+import t1 from "@/assets/treatment-1.webp";
 
 const About = () => (
   <PageLayout>

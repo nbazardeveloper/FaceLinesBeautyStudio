@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Star, ChevronDown } from "lucide-react";
+import { ArrowUpRight, Star, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { PageLayout } from "@/components/PageLayout";
 import { SEO } from "@/components/SEO";
 import { BUSINESS, REVIEWS, SERVICES } from "@/lib/business";
-import founder from "@/assets/founder.png";
-import t1 from "@/assets/treatment-1.jpg";
+import founder from "@/assets/founder.webp";
+import t1 from "@/assets/treatment-1.webp";
 import t2 from "@/assets/treatment-2.jpg";
 import t3 from "@/assets/treatment-3.jpg";
-import j1 from "@/assets/journal-1.jpg";
-import j2 from "@/assets/journal-2.jpg";
+import j1 from "@/assets/journal-1.webp";
+import j2 from "@/assets/journal-2.webp";
+import portraitHero from "@/assets/portrait-hero.webp";
 import approachListening from "@/assets/our-approach/listening_first.webp";
 import approachCareful from "@/assets/our-approach/careful_choices.webp";
 import approachSubtle from "@/assets/our-approach/subtle_results.webp";
@@ -38,6 +39,93 @@ const approach = [
 
 const gallery = workImages.length > 0 ? workImages : [t1, t2, t3, founder, j1, j2, t1, t2];
 
+const SCROLL_BY = 380;
+
+function GalleryStrip({ images }: { images: string[] }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
+  const rafRef = useRef<number>(0);
+
+  // Auto-scroll at ~0.6px/frame (~36px/s)
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const step = () => {
+      if (!pausedRef.current && track) {
+        track.scrollLeft += 0.6;
+        // Seamless loop: when we've scrolled past halfway, jump back
+        if (track.scrollLeft >= track.scrollWidth / 2) {
+          track.scrollLeft -= track.scrollWidth / 2;
+        }
+      }
+      rafRef.current = requestAnimationFrame(step);
+    };
+    rafRef.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  const pause = () => { pausedRef.current = true; };
+  const resume = () => { pausedRef.current = false; };
+
+  const scroll = (dir: -1 | 1) => {
+    pausedRef.current = true;
+    trackRef.current?.scrollBy({ left: dir * SCROLL_BY, behavior: "smooth" });
+    // Resume after user finishes browsing
+    setTimeout(() => { pausedRef.current = false; }, 3000);
+  };
+
+  const doubled = [...images, ...images];
+
+  return (
+    <div className="relative">
+      {/* Fade edges */}
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-16 z-10"
+        style={{ background: "linear-gradient(to right, hsl(var(--sky)) 0%, transparent 100%)" }} />
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-16 z-10"
+        style={{ background: "linear-gradient(to left, hsl(var(--sky)) 0%, transparent 100%)" }} />
+
+      {/* Arrow buttons */}
+      <button
+        type="button"
+        onClick={() => scroll(-1)}
+        aria-label="Scroll gallery left"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-background/80 backdrop-blur border border-border/60 text-ink shadow-soft hover:bg-background transition-colors"
+      >
+        <ChevronLeft size={20} />
+      </button>
+      <button
+        type="button"
+        onClick={() => scroll(1)}
+        aria-label="Scroll gallery right"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-background/80 backdrop-blur border border-border/60 text-ink shadow-soft hover:bg-background transition-colors"
+      >
+        <ChevronRight size={20} />
+      </button>
+
+      {/* Scrollable track */}
+      <div
+        ref={trackRef}
+        className="flex gap-5 px-8 overflow-x-auto scrollbar-none"
+        style={{ scrollbarWidth: "none" }}
+        aria-label="Gallery of recent work"
+        onMouseEnter={pause}
+        onMouseLeave={resume}
+        onTouchStart={pause}
+        onTouchEnd={() => setTimeout(resume, 2000)}
+      >
+        {doubled.map((src, i) => (
+          <div
+            key={i}
+            className="shrink-0 w-[260px] md:w-[340px] aspect-[4/5] overflow-hidden rounded-3xl bg-muted shadow-soft"
+          >
+            <img src={src} alt="" aria-hidden loading="lazy" className="w-full h-full object-cover" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const VISIBLE_SERVICES = 5;
 
 const Index = () => {
@@ -53,13 +141,61 @@ const Index = () => {
         path="/"
       />
       {/* HERO */}
-      <section className="topo-bg relative min-h-screen flex items-center justify-center px-6 pt-32 pb-20 overflow-hidden">
+      <section className="topo-bg relative min-h-screen flex flex-col px-6 pt-32 pb-16 overflow-hidden">
+
+        {/* Luminous halo — warm light radiating from behind the figure */}
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[55%] w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] bg-white/40 blob float-slow pointer-events-none"
           aria-hidden
+          className="pointer-events-none absolute inset-0 hidden md:block"
+          style={{
+            background:
+              "radial-gradient(ellipse 42% 55% at 50% 38%, rgba(255,252,248,0.85) 0%, rgba(255,249,242,0.45) 42%, transparent 70%)",
+          }}
         />
-        <div className="relative text-center max-w-5xl reveal">
-          <h1 className="font-display text-[clamp(3rem,9vw,8.5rem)] leading-[0.95] text-ink">
+
+        {/* Portrait — horizontally centered, bottom-anchored, dissolves into page */}
+        <img
+          src={portraitHero}
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 -translate-x-1/2 hidden md:block"
+          style={{
+            height: "78vh",
+            width: "auto",
+            bottom: "8vh",
+            opacity: 0.55,
+            mixBlendMode: "multiply",
+            maskImage:
+              "linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.12) 84%, transparent 95%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.12) 84%, transparent 95%)",
+          }}
+        />
+
+        {/* MOBILE portrait — in-flow, ~50vh tall, centered */}
+        <div
+          className="md:hidden relative w-screen -mx-6 h-[50vh] overflow-hidden pointer-events-none"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, black 10%, black 65%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, black 10%, black 65%, transparent 100%)",
+          }}
+        >
+          <img
+            src={portraitHero}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            fetchpriority="high"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            style={{ mixBlendMode: "multiply" }}
+          />
+        </div>
+
+        {/* Copy — dropped into bottom third of viewport */}
+        <div className="relative z-10 text-center max-w-5xl mx-auto reveal mt-auto">
+          <h1 className="font-display text-[clamp(2.5rem,7vw,8.5rem)] leading-[0.95] text-ink">
             Affordable luxury.<br />
             <span className="italic text-brand">Effortless</span> confidence.
           </h1>
@@ -78,6 +214,7 @@ const Index = () => {
             </a>
           </div>
         </div>
+
         <div className="absolute bottom-8 left-8 text-xs text-muted-ink hidden md:block">
           Auburn / Kent<br />Seattle Area
         </div>
@@ -130,6 +267,12 @@ const Index = () => {
                   <h3 className="font-display text-3xl text-ink">{s.title}</h3>
                   <ArrowUpRight className="text-muted-ink group-hover:text-ink group-hover:rotate-45 transition-all duration-500" size={24} />
                 </div>
+                {s.priceFrom !== undefined && (
+                  <div className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-ink">
+                    {s.priceNote ? `${s.priceNote} ` : "from "}
+                    <span className="text-ink font-medium normal-case tracking-normal text-sm">${s.priceFrom}</span>
+                  </div>
+                )}
                 <p className="mt-4 text-muted-ink text-sm leading-relaxed max-w-md">{s.short}</p>
                 <div className="mt-8 flex flex-wrap items-center gap-3 pt-4 border-t border-border/60">
                   <a
@@ -292,24 +435,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="marquee" aria-label="Gallery of recent work">
-          <div className="marquee-track gap-5 px-2">
-            {[...gallery, ...gallery].map((src, i) => (
-              <div
-                key={i}
-                className="shrink-0 w-[280px] md:w-[360px] aspect-[4/5] overflow-hidden rounded-3xl bg-muted shadow-soft"
-              >
-                <img
-                  src={src}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+<GalleryStrip images={gallery} />
 
         <div className="container text-center mt-12">
           <a
@@ -355,10 +481,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* JOURNAL */}
+      {/* VLOG */}
       <section className="bg-gradient-soft py-28">
         <div className="container">
-          <div className="text-xs uppercase tracking-[0.2em] text-muted-ink mb-4">Our Journal</div>
+          <div className="text-xs uppercase tracking-[0.2em] text-muted-ink mb-4">Our Vlog</div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <h2 className="font-display text-5xl md:text-7xl text-ink max-w-3xl leading-[1.05]">
               Beauty notes & aftercare.

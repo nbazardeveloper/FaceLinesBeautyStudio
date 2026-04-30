@@ -1,12 +1,12 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { BUSINESS } from "@/lib/business";
 
 const links = [
   { to: "/about", label: "About" },
   { to: "/services", label: "Services" },
-  { to: "/journal", label: "Journal" },
+  { to: "/journal", label: "Vlog" },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -24,18 +24,32 @@ export const SiteHeader = () => {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // Pulsing phone icon — reused on desktop & mobile
+  const PhoneIcon = ({ size = 18 }: { size?: number }) => (
+    <a
+      href={`tel:${BUSINESS.phoneTel}`}
+      aria-label={`Call ${BUSINESS.phone}`}
+      className="relative inline-flex items-center justify-center w-10 h-10 rounded-full bg-ink text-cream shadow-pill hover:scale-105 transition-transform"
+    >
+      <span aria-hidden className="absolute inset-0 rounded-full bg-ink/40 animate-phone-pulse" />
+      <span aria-hidden className="absolute inset-0 rounded-full bg-ink/30 animate-phone-pulse [animation-delay:1s]" />
+      <Phone size={size} strokeWidth={1.8} className="relative" />
+    </a>
+  );
+
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled ? "py-3 backdrop-blur-md bg-cream/60" : "py-6 bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between">
+      {/* DESKTOP */}
+      <div className="container hidden md:flex items-center justify-between">
         <Link to="/" className="font-sans font-extrabold text-2xl tracking-[0.18em] text-ink leading-none uppercase">
           {BUSINESS.shortName}
         </Link>
 
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="flex items-center gap-10">
           {links.map((l) => (
             <NavLink
               key={l.to}
@@ -51,7 +65,8 @@ export const SiteHeader = () => {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="flex items-center gap-3">
+          <PhoneIcon size={18} />
           <a
             href={BUSINESS.vagaroBook}
             target="_blank"
@@ -62,14 +77,31 @@ export const SiteHeader = () => {
             Book Now
           </a>
         </div>
+      </div>
 
-        <button
-          className="md:hidden p-2 text-ink"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
+      {/* MOBILE — 3-column grid: hamburger | logo | phone */}
+      <div className="container md:hidden grid grid-cols-3 items-center">
+        <div className="justify-self-start">
+          <button
+            className="p-2 text-ink"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+
+        <Link
+          to="/"
+          className="justify-self-center font-sans font-extrabold text-xl tracking-[0.18em] text-ink leading-none uppercase"
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
+          {BUSINESS.shortName}
+        </Link>
+
+        <div className="justify-self-end">
+          <PhoneIcon size={16} />
+        </div>
       </div>
 
       {open && (

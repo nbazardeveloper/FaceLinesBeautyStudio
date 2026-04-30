@@ -1,9 +1,9 @@
 import { PageLayout } from "@/components/PageLayout";
 import { SEO } from "@/components/SEO";
 import { Link } from "react-router-dom";
-import j1 from "@/assets/journal-1.jpg";
-import j2 from "@/assets/journal-2.jpg";
-import t1 from "@/assets/treatment-1.jpg";
+import j1 from "@/assets/journal-1.webp";
+import j2 from "@/assets/journal-2.webp";
+import t1 from "@/assets/treatment-1.webp";
 import t3 from "@/assets/treatment-3.jpg";
 
 const posts = [
@@ -40,13 +40,13 @@ const posts = [
 const Journal = () => (
   <PageLayout>
     <SEO
-      title="Journal — Beauty Notes & Aftercare | FACELINES Auburn"
+      title="Vlog — Beauty Notes & Aftercare | FACELINES Auburn"
       description="Practical notes on laser hair removal, permanent makeup aftercare, Russian manicures, and studio news from FACELINES Beauty Studio in Auburn, WA."
       path="/journal"
     />
     <section className="topo-bg pt-40 pb-24 px-6 text-center">
       <div className="container max-w-4xl reveal">
-        <div className="text-xs uppercase tracking-[0.2em] text-muted-ink mb-4">Journal</div>
+        <div className="text-xs uppercase tracking-[0.2em] text-muted-ink mb-4">Vlog</div>
         <h1 className="font-display text-6xl md:text-8xl text-ink leading-[0.95]">
           Beauty notes & <span className="italic">aftercare</span>.
         </h1>

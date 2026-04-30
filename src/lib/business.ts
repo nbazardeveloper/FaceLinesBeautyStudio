@@ -72,6 +72,7 @@ export const SERVICES = [
   {
     slug: "permanent-makeup",
     title: "Permanent Makeup",
+    priceFrom: 150,
     short:
       "Our signature service — natural powder brows and eyelash line enhancement. Wake up polished every day.",
     includes: [
@@ -83,6 +84,7 @@ export const SERVICES = [
   {
     slug: "laser-hair-removal",
     title: "Laser Hair Removal",
+    priceFrom: 40,
     short:
       "Medical-grade laser hair removal at competitive Seattle-area rates.",
     includes: [
@@ -94,6 +96,8 @@ export const SERVICES = [
   {
     slug: "laser-tattoo-removal",
     title: "Laser Tattoo Removal",
+    priceFrom: 100,
+    priceNote: "consultation",
     short:
       "Safe, gradual tattoo fading with professional laser technology.",
     includes: [
@@ -105,6 +109,7 @@ export const SERVICES = [
   {
     slug: "russian-manicure",
     title: "Russian Manicure & Nails",
+    priceFrom: 55,
     short:
       "Meticulous Russian-technique manicures for flawless, long-lasting nails.",
     includes: [
@@ -116,6 +121,7 @@ export const SERVICES = [
   {
     slug: "skincare",
     title: "Skincare",
+    priceFrom: 80,
     short:
       "Personalized facial treatments to refresh, balance, and care for your skin.",
     includes: [
@@ -127,6 +133,7 @@ export const SERVICES = [
   {
     slug: "lash-extensions",
     title: "Lash Extensions",
+    priceFrom: 75,
     short:
       "Classic, hybrid, and volume lash sets — applied with precision for a soft, natural look.",
     includes: [
@@ -138,6 +145,7 @@ export const SERVICES = [
   {
     slug: "makeup",
     title: "Makeup",
+    priceFrom: 120,
     short:
       "Professional makeup for events, photoshoots, and special occasions.",
     includes: [
@@ -149,6 +157,7 @@ export const SERVICES = [
   {
     slug: "eyebrows",
     title: "Eyebrows",
+    priceFrom: 20,
     short:
       "Brow shaping, tinting, and lamination for clean, defined, everyday-ready brows.",
     includes: [
@@ -160,6 +169,7 @@ export const SERVICES = [
   {
     slug: "waxing",
     title: "Waxing",
+    priceFrom: 10,
     short:
       "Gentle face and body waxing for silky-smooth, refreshed skin.",
     includes: [

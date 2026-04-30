@@ -38,6 +38,12 @@ const Services = () => (
             ))}
           </div>
           <div className="md:col-span-2 text-left md:text-right">
+            {s.priceFrom !== undefined && (
+              <div className="mb-3 text-xs uppercase tracking-[0.2em] text-muted-ink">
+                {s.priceNote ? `${s.priceNote} ` : "from "}
+                <span className="text-ink font-medium normal-case tracking-normal text-base">${s.priceFrom}</span>
+              </div>
+            )}
             <a
               href={BUSINESS.vagaroBook}
               target="_blank"
