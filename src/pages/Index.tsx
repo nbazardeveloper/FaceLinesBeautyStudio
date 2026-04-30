@@ -194,7 +194,7 @@ const Index = () => {
         </div>
 
         {/* Copy — dropped into bottom third of viewport */}
-        <div className="relative z-10 text-center max-w-5xl mx-auto reveal mt-auto mb-10 md:mb-0">
+        <div className="relative z-10 text-center max-w-5xl mx-auto reveal mt-auto mb-52 md:mb-0">
           <h1 className="font-display text-[clamp(2.5rem,7vw,8.5rem)] leading-[0.95] text-ink">
             Affordable luxury.<br />
             <span className="italic text-brand">Effortless</span> confidence.
